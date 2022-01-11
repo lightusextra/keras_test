@@ -12,7 +12,7 @@ class_names = ['1_建物から庭', '2_外の庭', '5_お菓子', '6_洋館内�
 IMG_WIDTH, IMG_HEIGHT = 224, 224
 TARGET_SIZE = (IMG_WIDTH, IMG_HEIGHT)
 #
-model_keras = 'my_model'
+model_keras = 'my_model2'
 
 from flask import Blueprint
 bp = Blueprint("inference", __name__, url_prefix="/inference")
