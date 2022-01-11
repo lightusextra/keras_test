@@ -38,6 +38,7 @@ def inference_keras():
         print(path)
     del file
     del img
+    del np
     from tensorflow import keras
     keras.backend.clear_session()
     import gc
@@ -49,6 +50,9 @@ def inference_keras():
         print(e)
     #from keras.applications.vgg16 import preprocess_input
     #predict = model.predict(preprocess_input(img))
+    keras.backend.clear_session()
+    import gc
+    gc.collect()
     predict = model.predict(x)
     for p in predict:
         class_index = p.argmax()
