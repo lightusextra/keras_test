@@ -36,17 +36,15 @@ def inference_keras():
     #path = os.path.join("./app/static/model/", model_keras)
     if (os.path.exists(path)):
         print(path)
-    import h5py
-    print(h5py.__version__)
+    del file
+    from tensorflow import keras
+    keras.backend.clear_session()
     import tensorflow as tf
-    print(tf.__version__)
-    #from tensorflow import keras
-    
     try:
         model = tf.keras.models.load_model(path, compile=False)
     except Exception as e:
         print(e)
-    from keras.applications.vgg16 import preprocess_input
+    #from keras.applications.vgg16 import preprocess_input
     #predict = model.predict(preprocess_input(img))
     predict = model.predict(x)
     for p in predict:
