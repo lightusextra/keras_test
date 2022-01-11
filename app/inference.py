@@ -37,8 +37,11 @@ def inference_keras():
     if (os.path.exists(path)):
         print(path)
     del file
+    del img
     from tensorflow import keras
     keras.backend.clear_session()
+    import gc
+    gc.collect()
     import tensorflow as tf
     try:
         model = tf.keras.models.load_model(path, compile=False)
