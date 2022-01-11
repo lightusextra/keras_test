@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 from os.path import join, dirname, realpath
 
 UPLOADS_DIR = "uploads"
@@ -53,7 +54,10 @@ def inference_keras():
     keras.backend.clear_session()
     import gc
     gc.collect()
-    predict = model.predict(x)
+    try:
+        predict = model.predict(x)
+    except Exception as e:
+        print(e)
     for p in predict:
         class_index = p.argmax()
         probality = p.max()
