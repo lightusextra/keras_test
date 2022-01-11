@@ -40,6 +40,8 @@ def inference_keras():
     import tensorflow as tf
     print(tf.__version__)
     #from tensorflow import keras
+    import os
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     try:
         model = tf.keras.models.load_model(path, compile=False)
     except Exception as e:
