@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="overlay">
+  <div id="spinner" class="d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+</div>
+<div id="wrap">
+  <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="explanation py-4 mb-4">
+            <input class="mb-2" type="file" name="file">
+          </div>
+          <div class="d-grid gap-2">
+            <button id="upload" type="button" class="btn btn-light">アップロード</button>
+          </div>
+        </div>
+        <div class="row">
+          <div id="result">
+            ​<picture>
+              <img src="" class="img-fluid img-thumbnail" alt="image">
+            </picture>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-grid gap-2">
+            <button id="inference_for_tensorflow" type="button" class="btn btn-lg btn-primary"><div class="badge bg-primary text-wrap" style="width: 6rem;">
+              推論(Tensorflow)
+            </div></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-grid gap-2">
+            <button id="inference_api_for_tensorflow" type="button" class="btn btn-lg btn-primary"><div class="badge bg-primary text-wrap" style="width: 6rem;">
+              推論API(Tensorflow)
+            </div></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex align-items-stretch">
+            <div id="str_result" class="d-inline p-2 bg-primary text-white">物体</div>
+            <div id="str_probality" class="d-inline p-2 bg-dark text-white">確信度</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<script src="{{ url_for('static', filename='js/upload.js') }}" charset="utf-8"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">SNS</th>
+        <th scope="col"></th>
+        <th scope="col">Button</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+        <td></td>
+        <td>
+        <div id="tweet"></div>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td colspan="2"></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script src="{{ url_for('static', filename='js/sns.js') }}" charset="utf-8"></script>
+{% endblock %}

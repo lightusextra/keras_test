@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <button id="deleteall" type="button" class="btn btn-light">
+        すべて削除
+      </button>
+    </div>
+      <ul class="list-group">
+      {% for file in filelist %}
+      <li class="list-group-item">​
+        <picture>
+          <img src="{{ url_for('static', filename='uploads/' + file) }}" class="img-fluid img-thumbnail" alt="image">
+        </picture>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+</form>
+<script src="{{ url_for('static', filename='js/uploadlist.js') }}" charset="utf-8"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{ url_for('static', filename='images/star.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><a href="/upload" >画像アップロード推論</a></h5>
+          <p class="card-text">画像をアップロードし、その画像を推論する</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{ url_for('static', filename='images/flower.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><a href="/upload/list" >画像アップロードリスト</a></h5>
+          <p class="card-text">アップロードされた画像リスト</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{ url_for('static', filename='images/mshroom.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><a href="/sns" >SNS投稿</a></h5>
+          <p class="card-text">SNS投稿ボタンサンプル</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
