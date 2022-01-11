@@ -28,6 +28,7 @@ def inference_keras():
     x = np.expand_dims(img, axis=0)
     #from PIL import Image
     #img = Image.open(path).convert('RGB')
+    import os
     path = os.path.join(STATIC_PATH, "model")
     path = os.path.join(path, model_keras)
     #path = os.path.join("/app", model_keras)
@@ -40,7 +41,6 @@ def inference_keras():
     import tensorflow as tf
     print(tf.__version__)
     #from tensorflow import keras
-    import os
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     try:
         model = tf.keras.models.load_model(path, compile=False)
