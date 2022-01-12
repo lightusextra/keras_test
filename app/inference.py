@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, current_app
+from flask import Flask, request, jsonify
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -13,13 +13,12 @@ class_names = ['1_建物から庭', '2_外の庭', '5_お菓子', '6_洋館内�
 IMG_WIDTH, IMG_HEIGHT = 224, 224
 TARGET_SIZE = (IMG_WIDTH, IMG_HEIGHT)
 #
-model_keras = 'my_model2'
+model_keras = 'cats_dogs_model.h5'
 
 from flask import Blueprint
 bp = Blueprint("inference", __name__, url_prefix="/inference")
 
 import tensorflow as tf
-graph = tf.compat.v1.get_default_graph()
 
 @bp.route('/keras', methods=['POST'])
 def inference_keras():
@@ -48,13 +47,19 @@ def inference_keras():
     import gc
     gc.collect()
     import tensorflow as tf
+    try:
+        model = tf.keras.models.load_model(path, compile=False)
+        #import tensorflow as tf
+        #model = tf.keras.applications.vgg16.VGG16(weights='imagenet')
+    except Exception as e:
+        print(e)
     #from keras.applications.vgg16 import preprocess_input
     #predict = model.predict(preprocess_input(img))
     keras.backend.clear_session()
     import gc
     gc.collect()
     try:
-        predict = current_app.model.predict(x)
+        predict = model.predict(x)
     except Exception as e:
         print(e)
     for p in predict:
