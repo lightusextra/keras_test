@@ -26,6 +26,12 @@ graph = tf.compat.v1.get_default_graph()
 def inference_keras():
     global graph
     with graph.as_default():
+        path = os.path.join(STATIC_PATH, "model")
+        path = os.path.join(path, model_keras)
+        if (os.path.exists(path)):
+            print(path)
+        from keras.models import load_model
+        model = load_model(path)
         file = request.files['file']
         path = os.path.join(UPLOADS_PATH, file.filename)
         file.save(path)
@@ -34,12 +40,6 @@ def inference_keras():
         img = preprocessing.img_to_array(img)
         import numpy as np
         x = np.expand_dims(img, axis=0)
-        path = os.path.join(STATIC_PATH, "model")
-        path = os.path.join(path, model_keras)
-        if (os.path.exists(path)):
-            print(path)
-        from keras.models import load_model
-        model = load_model(path)
         try:
             predict = model.predict(x)
             print(predict[0])
