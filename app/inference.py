@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 from os.path import join, dirname, realpath
 
 UPLOADS_DIR = "uploads"
