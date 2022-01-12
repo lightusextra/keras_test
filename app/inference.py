@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, current_app
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -54,7 +54,7 @@ def inference_keras():
     import gc
     gc.collect()
     try:
-        predict = model.predict(x)
+        predict = current_app.model.predict(x)
     except Exception as e:
         print(e)
     for p in predict:
