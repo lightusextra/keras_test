@@ -19,7 +19,7 @@ from flask import Blueprint
 bp = Blueprint("inference", __name__, url_prefix="/inference")
 
 import tensorflow as tf
-graph = tf.get_default_graph()
+graph = tf.keras.get_default_graph()
 
 @bp.route('/keras', methods=['POST'])
 def inference_keras():
