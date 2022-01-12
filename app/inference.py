@@ -24,51 +24,28 @@ graph = tf.compat.v1.get_default_graph()
 
 @bp.route('/keras', methods=['POST'])
 def inference_keras():
-    file = request.files['file']
-    path = os.path.join(UPLOADS_PATH, file.filename)
-    file.save(path)
-    from keras.preprocessing import image as preprocessing
-    img = preprocessing.load_img(path, target_size=TARGET_SIZE)
-    img = preprocessing.img_to_array(img)
-    import numpy as np
-    x = np.expand_dims(img, axis=0)
-    #from PIL import Image
-    #img = Image.open(path).convert('RGB')
-    path = os.path.join(STATIC_PATH, "model")
-    path = os.path.join(path, model_keras)
-    #path = os.path.join("/app", model_keras)
-    #print('model')
-    #path = os.path.join("./app/static/model/", model_keras)
-    if (os.path.exists(path)):
-        print(path)
-    del file
-    del img
-    del np
-    from tensorflow import keras
-    keras.backend.clear_session()
-    import gc
-    gc.collect()
-    import tensorflow as tf
     global graph
     with graph.as_default():
+        file = request.files['file']
+        path = os.path.join(UPLOADS_PATH, file.filename)
+        file.save(path)
+        from keras.preprocessing import image as preprocessing
+        img = preprocessing.load_img(path, target_size=TARGET_SIZE)
+        img = preprocessing.img_to_array(img)
+        import numpy as np
+        x = np.expand_dims(img, axis=0)
+        path = os.path.join(STATIC_PATH, "model")
+        path = os.path.join(path, model_keras)
+        if (os.path.exists(path)):
+            print(path)
+        from keras.models import load_model
+        model = load_model(path)
         try:
-            from keras.models import load_model
-            model = load_model(path, compile=False)
-            #import tensorflow as tf
-            #model = tf.keras.applications.vgg16.VGG16(weights='imagenet')
+            predict = model.predict(x)
+            print(predict[0])
         except Exception as e:
             print(e)
-    #from keras.applications.vgg16 import preprocess_input
-    #predict = model.predict(preprocess_input(img))
-    keras.backend.clear_session()
-    import gc
-    gc.collect()
-    try:
-        predict = model.predict(x)
-        print(predict[0])
-    except Exception as e:
-        print(e)
-    for p in predict:
-        class_index = p.argmax()
-        probality = p.max()
+        for p in predict:
+            class_index = p.argmax()
+            probality = p.max()
         return jsonify({"result":"OK", "file":class_names[class_index], "probality":str(probality)})
