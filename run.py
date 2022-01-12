@@ -28,4 +28,11 @@ app.config.from_mapping(
     )
 
 if __name__ == "__main__":
+    import tensorflow as tf
+    STATIC_PATH = join(dirname(realpath(__file__)), 'static')
+    import os
+    path = os.path.join(STATIC_PATH, "model")
+    model_keras = 'my_model2'
+    path = os.path.join(path, model_keras)
+    model = tf.keras.models.load_model(path, compile=False)
     app.run(host='0.0.0.0', port=5000)

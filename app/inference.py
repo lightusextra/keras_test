@@ -48,14 +48,6 @@ def inference_keras():
     import gc
     gc.collect()
     import tensorflow as tf
-    global graph
-    with graph.as_default():
-        try:
-            model = tf.keras.models.load_model(path, compile=False)
-            #import tensorflow as tf
-            #model = tf.keras.applications.vgg16.VGG16(weights='imagenet')
-        except Exception as e:
-            print(e)
     #from keras.applications.vgg16 import preprocess_input
     #predict = model.predict(preprocess_input(img))
     keras.backend.clear_session()
